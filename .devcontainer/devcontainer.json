@@ -48,19 +48,31 @@
     "source=${localEnv:HOME}/.exports,target=/home/dev/.exports,type=bind,consistency=cached",
     "source=claude-config-${devcontainerId},target=/home/dev/.claude,type=volume"
   ],
-  "forwardPorts": [3000, 5000, 8000, 8080, 9000],
+  "forwardPorts": [3000, 5173, 8000, 9000],
   "portsAttributes": {
     "3000": {
       "label": "Frontend Dev Server",
-      "onAutoForward": "notify"
+      "onAutoForward": "notify",
+      "protocol": "http",
+      "visibility": "public"
     },
-    "5000": {
-      "label": "Backend Dev Server",
-      "onAutoForward": "notify"
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify",
+      "protocol": "http",
+      "visibility": "public"
     },
     "8000": {
       "label": "Python Dev Server",
-      "onAutoForward": "notify"
+      "onAutoForward": "notify",
+      "protocol": "http",
+      "visibility": "public"
+    },
+    "9000": {
+      "label": "Development Server",
+      "onAutoForward": "notify",
+      "protocol": "http",
+      "visibility": "public"
     }
   },
   "postCreateCommand": "bash -c 'source ~/.bashrc && echo \"Development environment ready!\" && echo \"Node.js: $(node --version)\" && echo \"npm: $(npm --version)\" && echo \"pnpm: $(pnpm --version)\" && echo \"Python: $(python --version)\" && echo \"Poetry: $(poetry --version)\" && echo \"Claude Code: installed\"'",

@@ -28,8 +28,11 @@ Then open in VS Code → "Reopen in Container"
 
 ## Port Forwarding
 - **3000**: Frontend dev server
-- **5000**: Backend dev server
+- **5173**: Vite dev server
 - **8000**: Python dev server
+- **9000**: Development server
+
+All ports are configured with public visibility for remote access via `host-ip:port`.
 
 ## Requirements
 
