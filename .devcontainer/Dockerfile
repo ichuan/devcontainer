@@ -141,8 +141,8 @@ USER root
 RUN mkdir -p /workspace && chown -R $USERNAME:$USERNAME /workspace /home/$USERNAME
 
 # Copy .claude directory contents and .claude.json from .devcontainer
-COPY --chown=$USERNAME:$USERNAME .claude/ /home/$USERNAME/.claude/
-COPY --chown=$USERNAME:$USERNAME .claude.json /home/$USERNAME/
+COPY --chown=$USERNAME:$USERNAME .devcontainer/.claude/ /home/$USERNAME/.claude/
+COPY --chown=$USERNAME:$USERNAME .devcontainer/.claude.json /home/$USERNAME/
 
 # Switch back to non-root user
 USER $USERNAME
