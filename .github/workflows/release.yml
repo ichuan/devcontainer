@@ -29,23 +29,20 @@ jobs:
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{ steps.version.outputs.version }}
-          release_name: DevContainer Template v${{ steps.version.outputs.version }}
+          name: DevContainer Template v${{ steps.version.outputs.version }}
           body: |
             ## DevContainer Template Release
 
             This release contains the latest DevContainer configuration.
 
             ### Quick Setup
-            1. Download `devcontainer.json` from this release
-            2. Create `.devcontainer/` directory in your project
-            3. Place the downloaded file in `.devcontainer/devcontainer.json`
-            4. Open your project in VS Code and select "Reopen in Container"
+            ```bash
+            # One command setup
+            mkdir -p .devcontainer && curl -L https://github.com/ichuan/devcontainer/releases/latest/download/devcontainer.json -o .devcontainer/devcontainer.json
+            ```
 
             ### What's Included
             - Pre-built Docker image: `ghcr.io/ichuan/devcontainer:latest`
@@ -57,15 +54,6 @@ jobs:
             ### Changes in this release
             - Updated DevContainer configuration
             - Latest Docker image: `ghcr.io/ichuan/devcontainer:latest`
+          files: ./.devcontainer/devcontainer.json
           draft: false
           prerelease: false
-
-      - name: Upload devcontainer.json
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./.devcontainer/devcontainer.json
-          asset_name: devcontainer.json
-          asset_content_type: application/json
