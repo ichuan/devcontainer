@@ -1,9 +1,6 @@
 {
   "name": "Universal Development Container",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": "."
-  },
+  "image": "ghcr.io/ichuan/devcontainer:latest",
   "customizations": {
     "vscode": {
       "extensions": [

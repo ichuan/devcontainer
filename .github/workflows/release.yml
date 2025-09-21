@@ -1,0 +1,70 @@
+name: Create Release
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - '.devcontainer/devcontainer.json'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
+
+      - name: Generate version
+        id: version
+        run: |
+          # Use date and short commit SHA for version
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          VERSION="${{ steps.date.outputs.date }}-${SHORT_SHA}"
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          release_name: DevContainer Template v${{ steps.version.outputs.version }}
+          body: |
+            ## DevContainer Template Release
+
+            This release contains the latest DevContainer configuration.
+
+            ### Quick Setup
+            1. Download `devcontainer.json` from this release
+            2. Create `.devcontainer/` directory in your project
+            3. Place the downloaded file in `.devcontainer/devcontainer.json`
+            4. Open your project in VS Code and select "Reopen in Container"
+
+            ### What's Included
+            - Pre-built Docker image: `ghcr.io/ichuan/devcontainer:latest`
+            - Node.js LTS + pnpm
+            - Python 3.12+ + Poetry + pyenv
+            - TypeScript, Claude Code, GitHub CLI
+            - VS Code extensions for modern development
+
+            ### Changes in this release
+            - Updated DevContainer configuration
+            - Latest Docker image: `ghcr.io/ichuan/devcontainer:latest`
+          draft: false
+          prerelease: false
+
+      - name: Upload devcontainer.json
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./.devcontainer/devcontainer.json
+          asset_name: devcontainer.json
+          asset_content_type: application/json
