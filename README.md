@@ -127,4 +127,33 @@ After copying this template, consider:
 - Setting up project-specific environment variables
 - Customizing the development workflow in `.claude/CLAUDE.md`
 
+## Docker Image Automation
+
+The repository includes GitHub Actions workflow for automatic Docker image building and publishing:
+
+### Automatic Image Building
+
+- **Triggers**: Pushes to main/master branches when `.devcontainer/` files change
+- **Registry**: GitHub Container Registry (ghcr.io)
+- **Tags**: `latest`, branch names, and commit SHAs
+- **Caching**: Docker layer caching for faster builds
+
+### Available Images
+
+- `ghcr.io/{username}/{repository}:latest` - Latest stable version
+- `ghcr.io/{username}/{repository}:{branch}` - Branch-specific versions
+- `ghcr.io/{username}/{repository}:{branch}-{sha}` - Commit-specific versions
+
+### Using Pre-built Images
+
+Instead of building locally, reference the pre-built image in your `devcontainer.json`:
+
+```json
+{
+  "image": "ghcr.io/{username}/{repository}:latest"
+}
+```
+
+Replace `{username}` and `{repository}` with your GitHub username and repository name.
+
 This devcontainer template provides a consistent, feature-rich development environment that eliminates "works on my machine" issues and accelerates project setup for both individual developers and teams.
