@@ -71,6 +71,7 @@ RUN wget -O dotfiles.tar.gz https://github.com/ichuan/dotfiles/releases/latest/d
 USER root
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
     apt-get install -y nodejs && \
+    apt-get install -y xdg-utils --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
 # Enable Corepack and install pnpm
