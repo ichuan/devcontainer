@@ -54,7 +54,7 @@ ARG USER_GID=$USER_UID
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:/usr/bin/apt-get,/usr/bin/dpkg,/usr/bin/npm,/usr/bin/corepack > /etc/sudoers.d/$USERNAME \
+    && echo '$USERNAME ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
 # Switch to non-root user
