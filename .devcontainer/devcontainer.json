@@ -73,6 +73,7 @@
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
   "mounts": [
+    "source=${localEnv:HOME}/.gitconfig,target=/home/dev/.gitconfig,type=bind,consistency=cached",
     "source=${localEnv:HOME}/.exports,target=/home/dev/.exports,type=bind,consistency=cached",
     "source=claude-config-${devcontainerId},target=/home/dev/.claude,type=volume"
   ],
