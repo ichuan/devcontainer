@@ -5,9 +5,27 @@ A ready-to-use development container with Node.js, Python, and AI-powered tools.
 ## Quick Start
 
 ```bash
-# One command setup
-mkdir -p .devcontainer && curl -L https://raw.githubusercontent.com/ichuan/devcontainer/main/.devcontainer/devcontainer.json -o .devcontainer/devcontainer.json
+mkdir -p .devcontainer .claude && curl -L https://raw.githubusercontent.com/ichuan/devcontainer/main/.devcontainer/devcontainer.json -o .devcontainer/devcontainer.json
 ```
+
+If it's a frontend project:
+
+```bash
+curl -L https://raw.githubusercontent.com/ichuan/devcontainer/main/frontend_CLAUDE.md -o .claude/CLAUDE.md
+```
+
+Or if it's a backend/Python project:
+
+```bash
+curl -L https://raw.githubusercontent.com/ichuan/devcontainer/main/python_CLAUDE.md -o .claude/CLAUDE.md
+```
+
+Or if it's a hybrid project / you don't know:
+
+```bash
+curl -L https://raw.githubusercontent.com/ichuan/devcontainer/main/all_CLAUDE.md -o .claude/CLAUDE.md
+```
+
 Then open in VS Code → "Reopen in Container"
 
 ## What's Included
