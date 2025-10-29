@@ -128,15 +128,15 @@ ENV PATH="/home/$USERNAME/.local/bin:$PATH"
 RUN echo 'export PATH="/home/$USERNAME/.local/bin:$PATH"' >> ~/.bashrc
 
 # Install uv (Python package manager)
-RUN bash -c "source ~/.bashrc && curl -LsSf https://astral.sh/uv/install.sh | sh"
-
-# Add uv to PATH
-RUN echo 'source $HOME/.local/bin/env' >> ~/.bashrc
+RUN bash -c "source ~/.bashrc && curl -LsSf https://astral.sh/uv/install.sh | sh" && \
+    ls -la /home/$USERNAME/.local/bin/ && \
+    echo "PATH: $PATH"
 
 # Verify installations
 RUN bash -c "source ~/.bashrc && node --version && npm --version && pnpm --version && typescript --version || tsc --version"
 RUN bash -c "source ~/.bashrc && claude --version || echo 'Claude Code installed'"
-RUN bash -c "source ~/.bashrc && pyenv --version && python --version && poetry --version && uv --version"
+RUN bash -c "source ~/.bashrc && pyenv --version && python --version && poetry --version"
+RUN bash -c "source ~/.bashrc && uv --version"
 
 # Set default shell
 SHELL ["/bin/bash", "-c"]
