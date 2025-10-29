@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     lsb-release \
     vim \
-    && rm -rf /var/lib/apt/lists/*
+    procps
 
 # Set timezone to UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -127,10 +127,16 @@ RUN bash -c "source ~/.bashrc && curl -sSL https://install.python-poetry.org | p
 ENV PATH="/home/$USERNAME/.local/bin:$PATH"
 RUN echo 'export PATH="/home/$USERNAME/.local/bin:$PATH"' >> ~/.bashrc
 
+# Install uv (Python package manager)
+RUN bash -c "source ~/.bashrc && curl -LsSf https://astral.sh/uv/install.sh | sh"
+
+# Add uv to PATH
+RUN echo 'source $HOME/.local/bin/env' >> ~/.bashrc
+
 # Verify installations
 RUN bash -c "source ~/.bashrc && node --version && npm --version && pnpm --version && typescript --version || tsc --version"
 RUN bash -c "source ~/.bashrc && claude --version || echo 'Claude Code installed'"
-RUN bash -c "source ~/.bashrc && pyenv --version && python --version && poetry --version"
+RUN bash -c "source ~/.bashrc && pyenv --version && python --version && poetry --version && uv --version"
 
 # Set default shell
 SHELL ["/bin/bash", "-c"]
