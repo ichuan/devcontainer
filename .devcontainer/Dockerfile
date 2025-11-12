@@ -38,6 +38,8 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     lsb-release \
     vim \
+    iproute2 \
+    tree \
     procps
 
 # Set timezone to UTC

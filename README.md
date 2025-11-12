@@ -8,7 +8,7 @@ A ready-to-use development container with Node.js, Python, and AI-powered tools.
 mkdir -p .devcontainer .claude && curl -L https://raw.githubusercontent.com/ichuan/devcontainer/main/.devcontainer/devcontainer.json -o .devcontainer/devcontainer.json
 ```
 
-If it's a frontend project:
+If it's a frontend/typescript project:
 
 ```bash
 curl -L https://raw.githubusercontent.com/ichuan/devcontainer/main/frontend_CLAUDE.md -o .claude/CLAUDE.md
